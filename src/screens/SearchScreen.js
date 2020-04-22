@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import * as BooksAPI from '../BooksAPI'
 import BookList from '../Components/BookList'
@@ -8,11 +10,11 @@ const MAX_SEARCH_RESULT = 20
 export default class SearchScreen extends Component {
   state = {
     query: '',
-    searchResult: []
+    searchResult: [],
   }
 
   handleSearch = (query = this.state.query) => {
-    BooksAPI.search(query, MAX_SEARCH_RESULT).then(results => {
+    BooksAPI.search(query, MAX_SEARCH_RESULT).then((results) => {
       if (results.length > 0) {
         //loop through the books in the shelves
         //check if the id corresponds
@@ -26,21 +28,21 @@ export default class SearchScreen extends Component {
           }
         }
         this.setState(() => ({
-          searchResult: results
+          searchResult: results,
         }))
       }
     })
   }
 
-  handleQueryChange = query => {
+  handleQueryChange = (query) => {
     this.setState(() => ({
-      query
+      query,
     }))
   }
 
   handleShelfChange = (book, newShelf, newShelfTitle) => {
     BooksAPI.updateAsync(book, newShelf).then(() => {
-      alert(`${book.title} successfully moved to ${newShelfTitle}`)
+      toast(`${book.title} successfully moved to ${newShelfTitle}`)
     })
   }
 
@@ -53,7 +55,7 @@ export default class SearchScreen extends Component {
           </Link>
           <div className="search-books-input-wrapper">
             <form
-              onSubmit={event => {
+              onSubmit={(event) => {
                 event.preventDefault()
                 this.handleSearch()
               }}
@@ -62,7 +64,7 @@ export default class SearchScreen extends Component {
                 type="text"
                 placeholder="Search by title or author"
                 value={this.state.query}
-                onChange={event => this.handleQueryChange(event.target.value)}
+                onChange={(event) => this.handleQueryChange(event.target.value)}
               />
             </form>
           </div>

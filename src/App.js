@@ -1,10 +1,13 @@
 import React from 'react'
 import './App.css'
 import { Route } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import ReadsScreen from './screens/ReadsScreen'
 import SearchScreen from './screens/SearchScreen'
 import * as BooksAPI from './BooksAPI'
+
+toast.configure()
 
 const bookDetails = []
 
@@ -22,23 +25,23 @@ const getBooksIdAndShelfDetails = function(shelves) {
 
 class BooksApp extends React.Component {
   state = {
-    shelves: []
+    shelves: [],
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then(shelves => {
+    BooksAPI.getAll().then((shelves) => {
       getBooksIdAndShelfDetails(shelves)
       this.setState({
-        shelves
+        shelves,
       })
     })
   }
 
   handleBookShelfChange = (book, newShelf) => {
-    BooksAPI.updateAsync(book, newShelf).then(shelves => {
+    BooksAPI.updateAsync(book, newShelf).then((shelves) => {
       getBooksIdAndShelfDetails(shelves)
       this.setState(() => ({
-        shelves
+        shelves,
       }))
     })
   }
