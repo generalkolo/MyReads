@@ -1,4 +1,3 @@
-# myreads.github.io
 
 My Reads is a React application developed as a requirement to complete my UDACITY course training.
 
@@ -32,3 +31,6 @@ Due
 
 4. You can follow step 3 when you want to move books from shelf to shelf.
    ![landing page](./images/shelf_to_shelf.png 'Moving from shelf to shelf')
+
+
+hosted on - `https://my-books-keeper.netlify.app/`
