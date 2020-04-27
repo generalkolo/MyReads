@@ -40,9 +40,14 @@ class BooksApp extends React.Component {
   handleBookShelfChange = (book, newShelf) => {
     BooksAPI.updateAsync(book, newShelf).then((shelves) => {
       getBooksIdAndShelfDetails(shelves)
-      this.setState(() => ({
-        shelves,
-      }))
+      setTimeout(() => {
+        this.setState(() => ({
+          shelves,
+        }))
+        toast.success(`${book.title} successfully moved to ${newShelf} shelf`, {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+      }, 2000);
     })
   }
 

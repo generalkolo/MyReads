@@ -8,7 +8,7 @@ import BookList from '../Components/BookList'
 import Loading from '../Components/Loading'
 
 const MAX_SEARCH_RESULT = 20
-const SearchScreen = () => {
+const SearchScreen = props => {
   const [query, setQuery] = useState('')
   const [searchResult, setSearchResult] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -21,7 +21,7 @@ const SearchScreen = () => {
           //loop through the books in the shelves
           //check if the id corresponds
           //if yes assign the corresponding shelf to the search results
-          const { bookDetails } = this.props
+          const { bookDetails } = props
           for (const books of bookDetails) {
             for (const result of results) {
               if (books.id === result.id) {
@@ -47,7 +47,7 @@ const SearchScreen = () => {
     setIsLoading(true)
     BooksAPI.updateAsync(book, newShelf)
       .then(() => {
-        toast.success(`${book.title} successfully moved to ${newShelfTitle}`, {
+        toast.success(`${book.title} successfully moved to ${newShelfTitle} shelf`, {
           position: toast.POSITION.TOP_RIGHT,
         })
         setIsLoading(false)
@@ -79,7 +79,6 @@ const SearchScreen = () => {
               value={query}
               onChange={(event) => {
                 setQuery(event.target.value)
-                console.log('query', query)
               }}
             />
           </form>
